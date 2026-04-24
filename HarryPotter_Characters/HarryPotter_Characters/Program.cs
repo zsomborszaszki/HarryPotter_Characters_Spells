@@ -8,6 +8,58 @@ namespace HarryPotter_Characters
 {
     internal class Program
     {
+        public class Child
+        {
+
+            string FullName;
+
+            public Child(string name)
+            {
+                FullName = name;
+            }
+        }
+
+
+        public class Spell
+        {
+            int Index;
+            string Name;
+            string Use;
+
+            public Spell(int index, string name, string use)
+            {
+                Index = index;
+                Name = name;
+                Use = use;
+            }
+        }
+
+
+        public class Character
+        {
+            List<Spell> KnownSpells;
+            List<Child> Children;
+            int Index;
+            string FullName;
+            string Nickname;
+            string HogwartsHouse;
+            string InterpretedBy;
+            string Image;
+            DateTime Birthdate;
+           
+            public Character(List<Spell> knownspells, List<Child> children, int index, string fullname, string nickname, string hogwartshouse, string interpretedby, string image, DateTime birthdate)
+            {
+                KnownSpells = knownspells;
+                Children = children;
+                Nickname = nickname;
+                Index = index;
+                FullName = fullname;
+                HogwartsHouse = hogwartshouse;
+                InterpretedBy = interpretedby;
+                Image = image;
+                Birthdate = birthdate;
+            }
+        }
         static void Main(string[] args)
         {
         }
