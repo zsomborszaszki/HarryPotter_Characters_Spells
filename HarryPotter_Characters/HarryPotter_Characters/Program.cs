@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+
 
 namespace HarryPotter_Characters
 {
@@ -60,8 +64,23 @@ namespace HarryPotter_Characters
                 Birthdate = birthdate;
             }
         }
+
+
+        public static string[] CsvReader(string csv)
+        {
+            string[] lines = File.ReadAllLines(csv);
+
+            return lines;
+        }
+
         static void Main(string[] args)
         {
+            string[] nigg = CsvReader("characters.csv");
+
+            foreach (string lines in nigg) 
+            {
+                Console.WriteLine(lines);
+            }
         }
     }
 }
