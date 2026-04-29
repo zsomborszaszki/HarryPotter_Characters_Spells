@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 
 namespace HarryPotter_Characters
@@ -14,7 +10,7 @@ namespace HarryPotter_Characters
     internal class Program
     {
 
-        
+
         public class Child
         {
 
@@ -58,7 +54,7 @@ namespace HarryPotter_Characters
             public string InterpretedBy;
             public string Image;
             public DateTime Birthdate;
-           
+
             public Character(string fullname, string nickname, string hogwartshouse, string interpretedby, List<Child> children, string image, DateTime birthdate, int index, List<Spell> knownspells)
             {
                 KnownSpells = knownspells;
@@ -92,30 +88,31 @@ namespace HarryPotter_Characters
             string[] spells = CsvReader("spells.csv");
             List<Spell> serSpells = new List<Spell>();
             List<string> parts;
-            
-                for (int i = 1; i < spells.Length; i++) {
 
-                
+            for (int i = 1; i < spells.Length; i++)
+            {
+
+
 
                 parts = (Regex.Split(spells[i], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)")).ToList();
 
                 serSpells.Add(new Spell(Convert.ToInt32(parts[2]), parts[0], parts[1]));
 
                 parts.Clear();
-                }
+            }
 
 
             string[] characters = CsvReader("characters.csv");
             List<Character> SerCharacters = new List<Character>();
 
-            for(int i = 1;i < characters.Length;i++)
+            for (int i = 1; i < characters.Length; i++)
             {
                 parts = (Regex.Split(characters[i], ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)")).ToList();
 
                 var children = parts[4].Split(',').ToList();
                 var serChildren = new List<Child>();
 
-                foreach(var child in children)
+                foreach (var child in children)
                 {
                     Child currChild = new Child(child);
                     serChildren.Add(currChild);
@@ -126,7 +123,7 @@ namespace HarryPotter_Characters
                 var charSpells = parts[8].Split(';');
                 var serSpell = new List<Spell>();
 
-                foreach(var charSpell in charSpells)
+                foreach (var charSpell in charSpells)
                 {
                     Spell curSpell = new Spell(charSpell);
                     serSpell.Add(curSpell);
