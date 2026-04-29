@@ -13,10 +13,12 @@ namespace HarryPotter_Characters
 {
     internal class Program
     {
+
+        
         public class Child
         {
 
-            string FullName;
+            public string FullName;
 
             public Child(string name)
             {
@@ -37,20 +39,25 @@ namespace HarryPotter_Characters
                 Name = name;
                 Use = use;
             }
+
+            public Spell(string name)
+            {
+                Name = name;
+            }
         }
 
 
         public class Character
         {
-            List<Spell> KnownSpells;
-            List<Child> Children;
-            int Index;
-            string FullName;
-            string Nickname;
-            string HogwartsHouse;
-            string InterpretedBy;
-            string Image;
-            DateTime Birthdate;
+            public List<Spell> KnownSpells;
+            public List<Child> Children;
+            public int Index;
+            public string FullName;
+            public string Nickname;
+            public string HogwartsHouse;
+            public string InterpretedBy;
+            public string Image;
+            public DateTime Birthdate;
            
             public Character(string fullname, string nickname, string hogwartshouse, string interpretedby, List<Child> children, string image, DateTime birthdate, int index, List<Spell> knownspells)
             {
@@ -75,6 +82,11 @@ namespace HarryPotter_Characters
         }
 
 
+        public void Sorting(List<Character> SerCharacters)
+        {
+            var sortedChars = SerCharacters.OrderBy(date => date).ToList();
+        }
+
         static void Main(string[] args)
         {
             string[] spells = CsvReader("spells.csv");
@@ -92,7 +104,6 @@ namespace HarryPotter_Characters
                 parts.Clear();
                 }
 
-            Console.WriteLine(serSpells[0].Index);
 
             string[] characters = CsvReader("characters.csv");
             List<Character> SerCharacters = new List<Character>();
@@ -107,10 +118,22 @@ namespace HarryPotter_Characters
                 foreach(var child in children)
                 {
                     Child currChild = new Child(child);
+                    serChildren.Add(currChild);
                 }
-                
 
-                SerCharacters.Add(new Character(parts[0], parts[1], parts[2], parts[3], children , parts[5], parts[6], parts[7], parts[8]))
+                DateTime parsedDate = DateTime.Parse(parts[6]);
+
+                var charSpells = parts[8].Split(';');
+                var serSpell = new List<Spell>();
+
+                foreach(var charSpell in charSpells)
+                {
+                    Spell curSpell = new Spell(charSpell);
+                    serSpell.Add(curSpell);
+                }
+
+
+                SerCharacters.Add(new Character(parts[0], parts[1], parts[2], parts[3], serChildren, parts[5], parsedDate, Convert.ToInt32(parts[7]), serSpell));
             }
 
         }
